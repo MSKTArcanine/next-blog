@@ -1,7 +1,8 @@
 'use server'
 
+import { redirect } from "next/navigation"
 import { addUser } from "../data/db"
-import { FormState } from "../type"
+import { FormState } from "@/app/lib/types"
 
 export async function checkPass(prevState: FormState, formData:FormData) : Promise<FormState> {
     "use server"
@@ -9,6 +10,6 @@ export async function checkPass(prevState: FormState, formData:FormData) : Promi
     console.log(password, vPassword)
     if(password !== vPassword)
         return {error:true, username:username}
-    addUser({username, password})
-    return {error:false, username:username}
+    await addUser({username, password})
+    redirect('/')
 }
