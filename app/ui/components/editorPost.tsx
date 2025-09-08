@@ -5,10 +5,10 @@ import React, { useState } from "react"
 import EditInput from "@/app/ui/components/editInput"
 
 export default function EditorPost(props:{post:string, p:string}){
-    const [isEdit, setIsEdit] = useState<boolean>(false)
-    const [post, setPost] = useState<string>(props.post)
-    const [p, setP] = useState<string>(props.p)
-    const onHandleEditClick = () => setIsEdit(prev => !prev)
+    const [isEdit, setIsEdit] = useState<boolean>(false);
+    const [post, setPost] = useState<string>(props.post);
+    const [p, setP] = useState<string>(props.p);
+    const onHandleEditClick = () => setIsEdit(prev => !prev);
     const onPostChange = (e:React.ChangeEvent<HTMLInputElement>) => setPost(e.currentTarget.value);
     const onPChange = (e:React.ChangeEvent<HTMLInputElement>) => setP(e.currentTarget.value);
     return (
