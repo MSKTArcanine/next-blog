@@ -10,7 +10,7 @@ export default function EditorPost(props:{post:string, p:string}){
     const [p, setP] = useState<string>(props.p)
     const onHandleEditClick = () => setIsEdit(prev => !prev)
     const onPostChange = (e:React.ChangeEvent<HTMLInputElement>) => setPost(e.currentTarget.value);
-    const onPChange = (e:React.ChangeEvent<HTMLInputElement>) => setPost(e.currentTarget.value);
+    const onPChange = (e:React.ChangeEvent<HTMLInputElement>) => setP(e.currentTarget.value);
     return (
         <article className="p-2 flex flex-col gap-[2rem] border-2 border-accent-content rounded-2xl">
             <div className="flex flex-col gap-4">
