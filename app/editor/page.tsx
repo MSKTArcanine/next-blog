@@ -1,5 +1,7 @@
-export default function Editor(){
+import EditorPost from "../ui/components/editorPost";
+
+export default function EditorPage(){
     return (
-        <h1>Essai</h1>
+        <EditorPost post="Titre incroivable" p="Je sais pas quoi dire mais c'est dingue en vrai"/>
     )
 }

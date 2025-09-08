@@ -13,15 +13,18 @@ export default function Navbar(){
             />
             <ul className="flex flex-row gap-4 flex-1 justify-end-safe">
                 <li className="flex justify-center items-center"><Link href={'/'}>Blog posts</Link></li>
-                <li className="flex justify-center items-center">Editor</li>
+                <li className="flex justify-center items-center"><Link href={'/editor'}>Editor</Link></li>
             </ul>
             <ul className="flex gap-4 end">
-                <li><form
-          action={async () => {
-            'use server';
-            await signOut({ redirectTo: '/' });
-          }}
-        ><button type="submit">Sign out</button></form></li>
+                <li>
+                    <form
+                        action={async () => {
+                            'use server';
+                            await signOut({ redirectTo: '/' });
+                        }}>
+                        <button type="submit">Sign out</button>
+                    </form>
+                </li>
                 <li><Link href={'/signin'} className="btn btn-default rounded-md">Sign in</Link></li>
                 <li><Link href={'/register'} className="btn btn-primary rounded-md">Register</Link></li>
             </ul>
