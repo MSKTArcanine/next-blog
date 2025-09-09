@@ -1,8 +1,6 @@
 'use client'
 import { Post } from "@/app/lib/types";
-import { auth } from "@/auth"
 import EditorPost from "./editorPost";
-import getPost from "@/app/actions/getPosts";
 import { useState } from "react";
 
 export default function EditorPostWrapper(props:{posts:[Post]}){
