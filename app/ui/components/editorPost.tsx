@@ -4,7 +4,7 @@ import Image from "next/image"
 import React, { useState } from "react"
 import EditInput from "@/app/ui/components/editInput"
 
-export default function EditorPost(props:{post:string, p:string}){
+export default function EditorPost(props:{post:string, p:string, id:number, onHandleDeleteClick:CallableFunction}){
     const [isEdit, setIsEdit] = useState<boolean>(false);
     const [post, setPost] = useState<string>(props.post);
     const [p, setP] = useState<string>(props.p);
@@ -20,7 +20,7 @@ export default function EditorPost(props:{post:string, p:string}){
             <div className="buttonGroup flex flex-row flex-start">
                 <div className="groupe1 flex flex-row gap-2">
                     <button type="button" className="btn btn-primary p-3 rounded-[8px]" onClick={onHandleEditClick}>{isEdit ? 'Save' : 'Edit'} <Image src={isEdit ? '/assets/icons8-check.svg' : '/assets/icons8-plus.svg'} alt='plus' width={12} height={12} className="dark:invert"></Image></button>
-                    <button type="button" className="btn btn-secondary p-3 rounded-[8px]">Delete <Image src={'/assets/minus-svgrepo-com.svg'} alt='plus' width={12} height={12} className="dark:invert"></Image></button>
+                    <button type="button" className="btn btn-secondary p-3 rounded-[8px]" onClick={() => props.onHandleDeleteClick(props.id)}>Delete <Image src={'/assets/minus-svgrepo-com.svg'} alt='plus' width={12} height={12} className="dark:invert"></Image></button>
                 </div>
                 <div className="groupe2 flex-1 flex justify-end">
                     <label className=" text-white btn btn-secondary p-3 rounded-[8px] has-checked:btn-accent">Published<input type="checkbox" name="edit" id="edit" className={`toggle`} defaultChecked={true}/></label>

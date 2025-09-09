@@ -4,6 +4,7 @@ import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod'
 import { getUserFromUsername } from './app/data/db';
 import bcrypt from 'bcryptjs';
+import { loginAPI } from './app/actions/loginAPIAction';
  
 export const { auth, signIn, signOut } = NextAuth({
   ...authConfig,
@@ -21,27 +22,32 @@ export const { auth, signIn, signOut } = NextAuth({
             if(!user) return null;
             const passwordMatch = await bcrypt.compare(password, user.password);
             if(passwordMatch) {
-              const res = await fetch('https://blog-api-dqc2a0ftfra7akc5.francecentral-01.azurewebsites.net/api/auth/login/post',
-                  {
-                    method:"POST",
-                    headers:{"Content-Type":"application/json"},
-                    body:JSON.stringify({
-                      username:username,
-                      password:password,
-                    })
-                  }
-                );
-                const data = await res.json()
-                console.log(data.accessToken)
-              return {
-                id:user.id.toString(),
-                username:user.username,
-                accessToken:data.accessToken,
-              };
+              const {access_token} = await loginAPI({username, password})
+              return {id:user.id.toString(), username:user.username, access_token:access_token};
             }
         }
         console.log('Invalid credentials');
         return null;
     }
   })],
+  callbacks: {
+  async jwt({ token, user }) {
+    // 🔑 Premier login : merge les infos du user et accessToken dans le token
+    if (user) {
+      token.id = user.id;
+      token.username = user.username;
+      token.accessToken = user.access_token;
+    }
+    return token;
+  },
+  async session({ session, token }) {
+    // 🔑 On les copie dans la session exposée côté client/serveur
+    session.user = {
+      id: token.id,
+      username: token.username,
+    };
+    session.accessToken = token.accessToken;
+    return session;
+  },
+},
 });

@@ -1,7 +1,10 @@
+import { auth } from "@/auth";
 import CardPost from "./cardPost";
 import { Post } from "@/app/lib/types";
 
 async function getPosts():Promise<Post[]>{
+    const session = await auth();
+    console.log('session : ', session)
     const res = await fetch('https://blog-api-dqc2a0ftfra7akc5.francecentral-01.azurewebsites.net/api/v1/blog/posts', {next:{revalidate: 5}});
     const data = await res.json();
     return data.posts;
