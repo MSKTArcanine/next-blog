@@ -37,6 +37,9 @@ export const { auth, signIn, signOut } = NextAuth({
       token.id = user.id;
       token.username = user.username;
       token.accessToken = user.access_token;
+      token.accessTokenExpires = Date.now() + (15 * 60000)
+      
+      console.log(token)
     }
     return token;
   },
