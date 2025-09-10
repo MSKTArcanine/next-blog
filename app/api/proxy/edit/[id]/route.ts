@@ -9,7 +9,6 @@ export async function DELETE(req: Request, { params }:{params: {id:string}}){
             method:"DELETE",
             headers:{Authorization: `bearer ${session?.accessToken}`}
         }
-        
     )
     if(!res.ok)
         return Response.json({message: "Failed to delete"}, {status:res.status});

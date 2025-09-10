@@ -5,6 +5,8 @@ import React, { useState } from "react";
 
 export default function NewPost(){
 
+    const router = useRouter();
+
     const [title, setTitle] = useState<string>('');
     const [content, setContent] = useState<string>('');
     const [desc, setDesc] = useState<string>('');
@@ -14,7 +16,6 @@ export default function NewPost(){
     const onChangeContent = (e:React.ChangeEvent<HTMLInputElement>) => setContent(e.currentTarget.value);
     const onChangeDesc = (e:React.ChangeEvent<HTMLInputElement>) => setDesc(e.currentTarget.value);
     const onChangePublished = (e:React.ChangeEvent<HTMLInputElement>) => setIsPublished(prev => !prev);
-    const router = useRouter();
     const addPost = async () => {await fetch('/api/proxy/edit',{
             method:"POST",
             headers:{'Content-Type':'application/json'},
@@ -25,6 +26,7 @@ export default function NewPost(){
                 is_published:isPublished,
             }),
         });
+
         router.refresh();
     }
     return (

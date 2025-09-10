@@ -1,10 +1,11 @@
 'use client'
 import { Post } from "@/app/lib/types";
 import EditorPost from "./editorPost";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function EditorPostWrapper(props:{posts:[Post]}){
     const [posts, setPosts] = useState<Post[]>(props.posts)
+    useEffect(() => {setPosts(props.posts)}, [props.posts]);
     const onClickDelete = (id:number) => {
         const newPosts = posts.filter(p => p.id !== id);
         setPosts(newPosts);
