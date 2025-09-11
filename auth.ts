@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth';
 import { authConfig } from './auth.config';
 import Credentials from 'next-auth/providers/credentials';
-import { z } from 'zod'
+import { string, z } from 'zod'
 import { getUserFromUsername } from './app/data/db';
 import bcrypt from 'bcryptjs';
 import { loginAPI } from './app/actions/loginAPIAction';
@@ -45,10 +45,11 @@ export const { auth, signIn, signOut } = NextAuth({
   },
   async session({ session, token }) {
     // 🔑 On les copie dans la session exposée côté client/serveur
-    session.user = {
-      id: token.id,
+    
+    session.user = {//@ts-ignore
+      id: token.id,//@ts-ignore
       username: token.username,
-    };
+    };//@ts-ignore
     session.accessToken = token.accessToken;
     return session;
   },

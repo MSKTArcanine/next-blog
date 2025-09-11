@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 
-export async function DELETE(req: Request, { params }:{params: {id:string}}){
+export async function DELETE(req: Request, { params }:{params: Promise<{id:string}>}){
     const {id} = await params
     const session = await auth();
     console.log('token : ', session?.accessToken)
@@ -15,7 +15,7 @@ export async function DELETE(req: Request, { params }:{params: {id:string}}){
     return new Response(null, {status:204});
 }
 
-export async function PUT(req: Request, {params}:{params:{id:string}}){
+export async function PUT(req: Request, {params}:{params:Promise<{id:string}>}){
     const {id} = await params;
     const session = await auth();
     const b = await req.json();

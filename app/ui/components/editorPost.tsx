@@ -3,21 +3,20 @@
 import Image from "next/image"
 import React, { useState } from "react"
 import EditInput from "@/app/ui/components/editInput"
-import { title } from "process";
 
 export default function EditorPost(props:{post:string, p:string, id:number, desc:string, isPublished:boolean, onHandleDeleteClick:CallableFunction, onHandleEdit:CallableFunction}){
     const [isEdit, setIsEdit] = useState<boolean>(false);
     const [post, setPost] = useState<string>(props.post);
     const [p, setP] = useState<string>(props.p);
-    const [desc, setDesc] = useState<string>(props.desc);
     const [isPublished, setIsPublished] = useState<boolean>(props.isPublished);
+    const [desc, setDesc] = useState<string>(props.desc);
     const onHandleEditClick = () => setIsEdit(prev => !prev);
     const onPostChange = (e:React.ChangeEvent<HTMLInputElement>) => setPost(e.currentTarget.value);
     const onPChange = (e:React.ChangeEvent<HTMLInputElement>) => setP(e.currentTarget.value);
-    const onHandleToggle = (e:React.ChangeEvent<HTMLInputElement>) => setIsPublished(prev => !prev);
+    const onHandleToggle = () => setIsPublished(prev => !prev);
     const deletePost = async () => await fetch(`/api/proxy/edit/${props.id}`, {method:"DELETE"});
     const updatePost = async () => {
-        const res = await fetch(`/api/proxy/edit/${props.id}`, {
+        await fetch(`/api/proxy/edit/${props.id}`, {
         method:'PUT',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({
@@ -34,6 +33,7 @@ export default function EditorPost(props:{post:string, p:string, id:number, desc
             <div className="flex flex-col gap-4">
                 {isEdit ? <EditInput onHandleChange={onPostChange} text={post} id="post"/> : <h1 className="font-bold text-2xl">{post}</h1>}
                 {isEdit ? <EditInput onHandleChange={onPChange} text={p} id="p"/>: <p className="font-semibold">{p}</p>}
+                {isEdit ? <EditInput onHandleChange={(e) => setDesc(e.currentTarget.value)} text={desc} id="desc"/>: <p className="font-semibold">{p}</p>}
             </div>
             <div className="buttonGroup flex flex-row flex-start">
                 <div className="groupe1 flex flex-row gap-2">

@@ -15,7 +15,7 @@ export default function EditorPostWrapper(props:{posts:[Post]}){
         const updatedPost = postInfo;
         const updatedPosts = posts.map((post) => {
             if(post.id === id){
-                return {id ,...updatedPost}
+                return {...post, ...updatedPost}
             }else{
                 return post
             }
