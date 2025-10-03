@@ -15,7 +15,7 @@ export default function NewPost(){
     const onChangeTitle = (e:React.ChangeEvent<HTMLInputElement>) => setTitle(e.currentTarget.value);
     const onChangeContent = (e:React.ChangeEvent<HTMLInputElement>) => setContent(e.currentTarget.value);
     const onChangeDesc = (e:React.ChangeEvent<HTMLInputElement>) => setDesc(e.currentTarget.value);
-    const onChangePublished = (e:React.ChangeEvent<HTMLInputElement>) => setIsPublished(prev => !prev);
+    const onChangePublished = () => setIsPublished(prev => !prev);
     const addPost = async () => {await fetch('/api/proxy/edit',{
             method:"POST",
             headers:{'Content-Type':'application/json'},

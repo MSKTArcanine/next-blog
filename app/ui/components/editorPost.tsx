@@ -4,7 +4,14 @@ import Image from "next/image"
 import React, { useState } from "react"
 import EditInput from "@/app/ui/components/editInput"
 
-export default function EditorPost(props:{post:string, p:string, id:number, onHandleDeleteClick:CallableFunction}){
+interface EditorPostProps {
+    post:string;
+    p:string;
+    id:number;
+    onHandleDeleteClick:(n:number) => void;
+}
+
+export default function EditorPost(props:EditorPostProps){
     const [isEdit, setIsEdit] = useState<boolean>(false);
     const [post, setPost] = useState<string>(props.post);
     const [p, setP] = useState<string>(props.p);
