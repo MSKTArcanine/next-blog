@@ -20,8 +20,9 @@
     ],
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+    "types":["next-auth"],
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/register", "tailwind.config.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/register", "tailwind.config.js", "types"],
   "exclude": ["node_modules"]
 }

@@ -10,10 +10,23 @@ export default function EditorPostWrapper(props:{posts:[Post]}){
         const newPosts = posts.filter(p => p.id !== id);
         setPosts(newPosts);
     }
+    const onClickEdit = (id:number, postInfo:{title:string, content:string, desc:string, is_published:boolean}) => {
+        console.log('ALLO ???')
+        const updatedPost = postInfo;
+        const updatedPosts = posts.map((post) => {
+            if(post.id === id){
+                return {...post, ...updatedPost}
+            }else{
+                return post
+            }
+        });
+        console.log(updatedPosts);
+        setPosts(updatedPosts);
+    }
     console.log('posts : ', posts)
     return (
         <>
-            {posts.map(p => <EditorPost key={p.id} post={p.title} p={p.content} id={p.id} onHandleDeleteClick={onClickDelete}/>)}
+            {posts.map(p => <EditorPost key={p.id} post={p.title} p={p.content} id={p.id} desc={p.desc} isPublished={p.is_published} onHandleDeleteClick={onClickDelete} onHandleEdit={onClickEdit}/>)}
         </>
     )
 }
